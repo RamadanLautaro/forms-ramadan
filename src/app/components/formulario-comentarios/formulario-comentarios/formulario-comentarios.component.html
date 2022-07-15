@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-4 p-3 my-5">
+        <div class="card shadow-lg">
+            <form [formGroup]="formularioComentarios">
+                <div class="card-body text-uppercase">
+                    <h1 class="mt-2 mb-4 text-primary fs-1 text-center">FORMULARIO</h1>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label text-primary m-0 fs-6 fw-light">Nombre</label>
+                        <span class="text-danger" *ngIf="formularioComentarios.get('nombre')?.errors?.['minlength']">
+                            (Mínimo 5 caracteres)
+                        </span>
+                        <input formControlName="nombre" class="form-control" type="text" placeholder="Ingrese su nombre..."
+                        [ngClass]="formularioComentarios.get('nombre')?.value?.length === 0 ? '' : formularioComentarios.get('nombre')?.errors?.['minlength'] === null ? 'is-valid' : 'is-invalid'">
+                    </div>
+                    <div class="mb-3">
+                        <label for="edad" class="form-label text-primary m-0 fs-6 fw-light">Edad</label>
+                        <span class="text-danger" *ngIf="formularioComentarios.get('edad')?.errors?.['max']">
+                            (Edad máxima: 110 años)
+                        </span>
+                        <input formControlName="edad" class="form-control" type="number" placeholder="Ingrese su edad..."
+                        [ngClass]="formularioComentarios.get('edad')?.value == null ? '' : formularioComentarios.get('edad')?.errors?.['max'] === null ? 'is-valid' : 'is-invalid'">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label text-primary m-0 fs-6 fw-light">Email</label>
+                        <span class="text-danger" *ngIf="formularioComentarios.get('email')?.errors?.['email']">
+                            (Formato de mail inválido)
+                        </span>
+                        <input formControlName="email" class="form-control" type="email" placeholder="Ingrese su email..."
+                        [ngClass]="formularioComentarios.get('email')?.value?.length === 0 ? '' : formularioComentarios.get('email')?.errors?.['email'] === null ? 'is-valid' : 'is-invalid'">
+                    </div>
+                    <div class="mb-4">
+                        <label for="mensaje" class="form-label text-primary m-0 fs-6 fw-light">Mensaje</label>
+                        <span class="text-danger" *ngIf="formularioComentarios.get('mensaje')?.errors?.['maxlength']">
+                            (Máximo 70 caracteres)
+                        </span>
+                        <textarea formControlName="mensaje" class="form-control" type="text" placeholder="Deje su mensaje..." rows="3"
+                        [ngClass]="formularioComentarios.get('mensaje')?.value?.length === 0 ? '' : formularioComentarios.get('mensaje')?.errors?.['maxlength'] === null ? 'is-valid' : 'is-invalid'"></textarea>
+                    </div>
+                </div>
+                <div class="card-footer row m-0">
+                    <div class="col-6">
+                        <button class="btn btn-secondary w-100" (click)="limpiarFormulario()">LIMPIAR</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-primary w-100" [disabled]="formularioComentarios.invalid" (click)="enviarComentario()">ENVIAR</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-8 p-3 my-5">
+        <div class="row">
+            <div *ngFor="let comentario of listaComentarios" class="col-12 mb-3 card shadow">
+                <div class="row p-3">
+                    <div class="col-6">
+                        <span class="text-primary fs-5 text-uppercase">{{comentario.nombre}}</span>
+                        <span class="text-secondary fs-5 fw-light"> ({{comentario.edad}} AÑOS)</span>
+                    </div>
+                    <div class="col-6 text-end">
+                        <span class="text-primary fs-5 fw-light text-lowercase">{{comentario.email}}</span>
+                    </div>
+                    <div class="col-12">
+                        <hr class="my-2">
+                        <span class="text-secondary fs-6 fst-italic">"{{comentario.mensaje}}"</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
