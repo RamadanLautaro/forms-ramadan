@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Comentario } from '../../../classes/Comentario';
+import { Comentario } from '../../classes/Comentario';
 
 @Component({
   selector: 'app-formulario-comentarios',
